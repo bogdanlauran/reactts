@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ListListOfItems from './ToDoList';
+import InputAndBtn from './CreateTodo';
 
 function Todo(){
     const [initialText, setInitialText] = useState('');
@@ -9,8 +10,7 @@ function Todo(){
 
     return(
         <div>
-            <input type="text" id="fname" name="fname" placeholder="Input" onChange={(event)=>setInitialText(event.target.value)}></input>
-            <button type="button" onClick={clicked}>Click</button>
+            <InputAndBtn setInitialText={setInitialText} clicked={clicked}/>
             <ListListOfItems list={currentText}/>
         </div>
     )

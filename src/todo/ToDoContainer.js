@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ListListOfItems from './ToDoList';
-import InputAndBtn from './CreateTodo';
+import CreateTodo from './CreateTodo';
+import TodoList from './ToDoList';
 
-function Todo(){
+function TodoContainer(){
     const [initialText, setInitialText] = useState('');
     const [currentText, setCurrentText] = useState([]);
 
@@ -10,10 +10,10 @@ function Todo(){
 
     return(
         <div>
-            <InputAndBtn setInitialText={setInitialText} clicked={clicked}/>
-            <ListListOfItems list={currentText}/>
+            <CreateTodo onTextChange={setInitialText} onClicked={clicked}/>
+            <TodoList list={currentText}/>
         </div>
     )
 }
 
-export default Todo;
+export default TodoContainer;

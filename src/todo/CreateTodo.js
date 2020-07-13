@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function CreateTodo({onTextChange, onClicked}){
-    
-    return(
+function CreateTodo({ onCreateTodo }) {
+    const [text, setText] = useState('');
+
+    const inputChange = event => {
+        setText(event.target.value);
+    };
+
+    const createTodo = () => {
+        onCreateTodo(text);
+    };
+
+    return (
         <div>
-            <input type="text" id="fname" name="fname" placeholder="Input" onChange={(event)=>onTextChange(event.target.value)}></input>
-            <button type="button" onClick={onClicked}>Click</button>
+            <input type="text" placeholder="Todo.." onChange={inputChange}></input>
+            <button type="button" onClick={createTodo}>Click</button>
         </div>
     )
 }

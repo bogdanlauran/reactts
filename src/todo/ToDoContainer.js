@@ -3,15 +3,19 @@ import CreateTodo from './CreateTodo';
 import TodoList from './ToDoList';
 
 function TodoContainer(){
-    const [initialText, setInitialText] = useState('');
-    const [currentText, setCurrentText] = useState([]);
+    const [todos, setTodos] = useState([]);
 
-    const clicked = () =>{setCurrentText(currentText => [...currentText, initialText])};
+    const onCreateTodoClick = text => {
+        setTodos([
+            ...todos,
+            text
+        ]);
+    };
 
     return(
         <div>
-            <CreateTodo onTextChange={setInitialText} onClicked={clicked}/>
-            <TodoList list={currentText}/>
+            <CreateTodo onCreateTodo={onCreateTodoClick}/>
+            <TodoList list={todos}/>
         </div>
     )
 }

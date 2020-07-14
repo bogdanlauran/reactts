@@ -1,7 +1,7 @@
 import React from 'react';
 import ListItem from './ToDoItem';
 
-function ListListOfItems(props){
+function TodoList(props){
 
     return(
         <ul>
@@ -12,4 +12,4 @@ function ListListOfItems(props){
     )
 }
 
-export default ListListOfItems;
+export default TodoList;

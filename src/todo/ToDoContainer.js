@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
-import ListListOfItems from './ToDoList';
+import CreateTodo from './CreateTodo';
+import TodoList from './ToDoList';
 
-function Todo(){
-    const [initialText, setInitialText] = useState('');
-    const [currentText, setCurrentText] = useState([]);
+function TodoContainer(){
+    const [todos, setTodos] = useState([]);
 
-    const clicked = () =>{setCurrentText(currentText => [...currentText, initialText])};
+    const onCreateTodoClick = text => {
+        setTodos([
+            ...todos,
+            text
+        ]);
+    };
 
     return(
         <div>
-            <input type="text" id="fname" name="fname" placeholder="Input" onChange={(event)=>setInitialText(event.target.value)}></input>
-            <button type="button" onClick={clicked}>Click</button>
-            <ListListOfItems list={currentText}/>
+            <CreateTodo onCreateTodo={onCreateTodoClick}/>
+            <TodoList list={todos}/>
         </div>
     )
 }
 
-export default Todo;
+export default TodoContainer;

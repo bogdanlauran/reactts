@@ -12,15 +12,15 @@ function TodoContainer(){
         ]);
     };
 
-    const onDeleteTodoClick = text => {
-        const newTodos = todos.filter( (item)=>item !== text);
+    const deleteTodoClick = text => {
+        const newTodos = todos.filter((item)=>item !== text);
         setTodos(newTodos);
     }
 
     return(
         <div>
             <CreateTodo onCreateTodo={onCreateTodoClick}/>
-            <TodoList list={todos} remove={onDeleteTodoClick}/>
+            <TodoList list={todos} onDeleteTodoClick={deleteTodoClick}/>
         </div>
     )
 }

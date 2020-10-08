@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CreateTodo from './CreateTodo';
+import HooksExample from './HooksExample';
 import TodoList from './ToDoList';
 
 function TodoContainer(){
@@ -12,8 +13,8 @@ function TodoContainer(){
         ]);
     };
 
-    const deleteTodoClick = text => {
-        const newTodos = todos.filter((item)=>item !== text);
+    const deleteTodoClick = idx => {
+        const newTodos = todos.filter((_, i)=>idx !== i);
         setTodos(newTodos);
     }
 
@@ -21,6 +22,8 @@ function TodoContainer(){
         <div>
             <CreateTodo onCreateTodo={onCreateTodoClick}/>
             <TodoList list={todos} onDeleteTodoClick={deleteTodoClick}/>
+            <br/>
+            <HooksExample />
         </div>
     )
 }

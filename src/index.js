@@ -9,7 +9,9 @@ import TodoContainer from './todo/ToDoContainer';
 
 ReactDOM.render(
   <React.StrictMode>
-   <TodoContainer />
+   <div className="container">
+    <TodoContainer />
+   </div>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,18 +1,29 @@
 import React from 'react';
+import propTypes from 'prop-types';
+import './ToDoItem.css';
 
-function ListItem(props){
+function ListItem(props) {
 
     const deleteTodo = () => {
-        props.onDelete(props.value)
+        props.onDelete();
     };
 
-    return(
-        <li>
-            {props.value} 
-            <button class="btn btn-danger btn-sm rounded-0" type="button" onClick={deleteTodo}><i class="fa fa-trash"></i></button>
-        </li> 
+    return (
+        <li className="todo-item list-group-item">
+            <span>
+                {props.value}
+            </span>
+            <button className="btn btn-danger btn-sm rounded-1" type="button" onClick={deleteTodo}>
+                <i className="fa fa-trash"></i>
+            </button>
+            
+        </li>
 
     )
 }
+
+ListItem.propTypes = {
+    onDelete: propTypes.func.isRequired 
+};
 
 export default ListItem;

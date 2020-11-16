@@ -9,7 +9,7 @@ export default function HooksExample() {
 
     return (
         <div>
-            <h1>Hello Sexy!</h1>
+            <h1>Hello!</h1>
                 {todos.loading ? (<h3>loading...</h3>) 
                 : (todos.todos.map(todo => <pre>{JSON.stringify(todo, null, "\t")}</pre>))}
         </div>

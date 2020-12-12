@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import propTypes from 'prop-types';
 
 function CreateTodo({ onCreateTodo }) {
     const [text, setText] = useState('');

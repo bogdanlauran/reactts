@@ -1,16 +1,94 @@
 import React from 'react';
-import { useFormik } from 'formik';
+import { Formik, useFormik, useFormikContext, useField } from 'formik';
 import * as Yup from 'yup';
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 
-function ToDoForm(){
+const TodoForm = ({ formik }) => {
+    const { setFieldValue } = useFormikContext();
+    const [startDateField] = useField({ name: 'startDate' });
+    const [endDateField] = useField({ name: 'endDate' });
+
+    window.formik = formik;
+    return <>
+        <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input type="text" className="form-control" id="title" placeholder="Title"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.title}
+            />
+            {formik.touched.title && formik.errors.title ? (
+                <div>{formik.errors.title}</div>
+            ) : null}
+
+        </div>
+        <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <textarea className="form-control" id="description" rows="3"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.description}
+            ></textarea>
+            {formik.touched.description && formik.errors.description ? (
+                <div>{formik.errors.description}</div>
+            ) : null}
+        </div>
+        <div className="form-group">
+            <label className="mb-3 row">
+                Start Date:
+                <DatePicker id="startDate"
+                    selected={(startDateField.value && new Date(startDateField.value)) || null}
+                    onChange={date => setFieldValue(startDateField.name, date)}
+                    value={formik.values.startDate}
+                    className="form-control"
+                />
+            </label>
+
+            {formik.touched.startDate && formik.errors.startDate ? (
+                <div>{formik.errors.startDate}</div>
+            ) : null}
+
+            <label className="mb-2 row">
+                End Date:
+                <DatePicker id="endDate"
+                    selected={(endDateField.value && new Date(endDateField.value)) || null}
+                    onChange={date => setFieldValue(endDateField.name, date)}
+                    value={formik.values.endDate}
+                    className="form-control"
+                />
+            </label>
+            {formik.touched.endDate && formik.errors.endDate ? (
+                <div>{formik.errors.endDate}</div>
+            ) : null}
+        </div>
+        <div className="form-group">
+            <label htmlFor="status">Status:</label>
+            <select className="form-control" id="status"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.status}
+            >
+                <option>Active</option>
+                <option>Inactive</option>
+            </select>
+            {formik.touched.status && formik.errors.status ? (
+                <div>{formik.errors.status}</div>
+            ) : null}
+        </div>
+        <button type="button" className="btn btn-light">Submit</button>
+
+    </>
+}
+
+
+function ToDoFormContainer() {
     const formik = useFormik({
         initialValues: {
             title: '',
             description: '',
-            startDate: '',
-            endDate: '',
+            startDate: new Date(),
+            endDate: new Date(),
             status: '',
         },
         validationSchema: Yup.object({
@@ -21,11 +99,12 @@ function ToDoForm(){
             description: Yup.string()
                 .max(200, '*Must be 200 characters or less')
                 .required('*Required'),
-            startDate: Yup.string()
-                // .min(new Date().getDate(), 'The start date must')
-                .required('*Required'),
-            endDate: Yup.string()
-                // .min(Yup.ref(), 'Must be after the start date')
+            startDate: Yup.date().default(function () {
+                return new Date();
+            }).required('*Required'),
+            endDate: Yup.date().default(function () {
+                return new Date();
+            })
                 .required('*Required'),
             status: Yup.string()
                 .required('*Required'),
@@ -35,78 +114,10 @@ function ToDoForm(){
         },
     });
 
-    return(
-        <form>
-            <div className="form-group">
-                <label htmlFor="title">Title</label>
-                <input type="text" className="form-control" id="title" placeholder="Title" 
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.title}
-                />
-                {formik.touched.title && formik.errors.title ? (
-                    <div>{formik.errors.title}</div>
-                ) : null}
 
-            </div>
-            <div className="form-group">
-                <label htmlFor="description">Description</label>
-                <textarea className="form-control" id="description" rows="3"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.description}
-                ></textarea>
-                {formik.touched.description && formik.errors.description ? (
-                    <div>{formik.errors.description}</div>
-                ) : null}
-            </div>
-            <div className="form-group">
-                <label>
-                    Start Date:
-                    <br></br>
-                    <DatePicker id="startDate" 
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        selected={formik.values.startDate}
-                    />
-                </label>
-                <br></br>
-                
-                
-                {formik.touched.startDate && formik.errors.startDate ? (
-                    <div>{formik.errors.startDate}</div>
-                ) : null}
-                <label>
-                    End Date:
-                    <br></br>
-                    <DatePicker
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.endDate}
-                    />
-                </label>
-                {formik.touched.endDate && formik.errors.endDate ? (
-                    <div>{formik.errors.endDate}</div>
-                ) : null}
-            </div>
-            <div className="form-group">
-                <label htmlFor="status">Status:</label>
-                <select className="form-control" id="status"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.status}
-                >
-                    <option>Active</option>
-                    <option>Inactive</option>
-                </select>
-                {formik.touched.status && formik.errors.status ? (
-                    <div>{formik.errors.status}</div>
-                ) : null}
-            </div>
-            <button type="button" className="btn btn-light">Submit</button>
-
-        </form>
-    )
+    return <Formik {...formik}>
+        <TodoForm formik={formik} />
+    </Formik>
 }
 
-export default ToDoForm;
+export default ToDoFormContainer;

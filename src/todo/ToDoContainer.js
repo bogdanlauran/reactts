@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import CreateTodo from './CreateTodo';
 // import HooksExample from './HooksExample';
-import ToDoForm from './ToDoForm';
+import ToDoFormContainer from './ToDoForm';
 import TodoList from './ToDoList';
 
-function TodoContainer(){
+function TodoContainer() {
     const [todos, setTodos] = useState([]);
 
     const onCreateTodoClick = text => {
@@ -15,17 +15,18 @@ function TodoContainer(){
     };
 
     const deleteTodoClick = idx => {
-        const newTodos = todos.filter((_, i)=>idx !== i);
+        const newTodos = todos.filter((_, i) => idx !== i);
         setTodos(newTodos);
     }
 
-    return(
+    return (
         <div>
-            <CreateTodo onCreateTodo={onCreateTodoClick}/>
-            <TodoList list={todos} onDeleteTodoClick={deleteTodoClick}/>
-            <br/>
+            <CreateTodo onCreateTodo={onCreateTodoClick} />
+            <TodoList list={todos} onDeleteTodoClick={deleteTodoClick} />
+            <br />
             {/* <HooksExample /> */}
-            <ToDoForm />
+
+            <ToDoFormContainer />
         </div>
     )
 }

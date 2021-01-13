@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CreateTodo from './CreateTodo';
-import HooksExample from './HooksExample';
+// import HooksExample from './HooksExample';
+import ToDoForm from './ToDoForm';
 import TodoList from './ToDoList';
 
 function TodoContainer(){
@@ -23,7 +24,8 @@ function TodoContainer(){
             <CreateTodo onCreateTodo={onCreateTodoClick}/>
             <TodoList list={todos} onDeleteTodoClick={deleteTodoClick}/>
             <br/>
-            <HooksExample />
+            {/* <HooksExample /> */}
+            <ToDoForm />
         </div>
     )
 }
